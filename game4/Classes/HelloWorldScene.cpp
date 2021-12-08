@@ -85,7 +85,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("Hi I'm a good kitty", "fonts/Marker Felt.ttf", 24);
     if (label == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
@@ -93,8 +93,10 @@ bool HelloWorld::init()
     else
     {
         // position the label on the center of the screen
+        // label->setPosition(Vec2(origin.x + visibleSize.width/2,
+        //                         origin.y + visibleSize.height - label->getContentSize().height));
         label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+                                visibleSize.height/2 - origin.y ));
 
         // add the label as a child to this layer
         this->addChild(label, 1);
@@ -102,9 +104,10 @@ bool HelloWorld::init()
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
+    // auto sprite = Sprite::create("cat-1.jpg");
     if (sprite == nullptr)
     {
-        problemLoading("'HelloWorld.png'");
+        problemLoading("'cat-1.jpg'");
     }
     else
     {
@@ -114,8 +117,77 @@ bool HelloWorld::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
     }
+
+    myCatSprite2 = Sprite::create("cat-4.jpg");
+    // myCatSprite2->setPosition( 
+    //     Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2  + origin.y)
+    // );
+    myCatSprite2->setPosition( 
+        Point(visibleSize.width / 2, visibleSize.height / 2  + origin.y)
+    );
+    this->addChild(myCatSprite2);
+
+    // auto action = MoveBy::create(3, Point(100, 0));
+    // myCatSprite2->runAction(action);
+
+    // action = MoveTo::create(3, Point(100, 300));
+    // myCatSprite2->runAction(action);
+
+
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    // auto listener = EventListenerTouchAllAtOnce::create();
+    // listener->onTouchesBegan = CC_CALLBACK_2(HelloWorld::onTouchesBegan, this);
+    // // listener->onTouchesMoved = CC_CALLBACK_2(HelloWorld::onTouchesMoved, this);
+    // // listener->onTouchesEnded = CC_CALLBACK_2(HelloWorld::onTouchesEnded, this);
+    // _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+
     return true;
 }
+
+
+bool HelloWorld::onTouchBegan(Touch* touch, Event* event)
+{
+    CCLOG("onTouchBegan x = %f, y = %f", touch->getLocation().x, touch->getLocation().y);
+
+    // auto action = MoveTo::create(5, 
+    //     Point(touch->getLocation().x, touch->getLocation().y));
+    auto action = JumpTo::create(3, Point(touch->getLocation().x, touch->getLocation().y), 10, 6);
+    myCatSprite2->runAction(action);
+
+    return true;
+}
+
+void HelloWorld::onTouchMoved(Touch* touch, Event* event)
+{
+    // CCLOG("onTouch Moved x = %f, y = %f", touch->getLocation().x, touch->getLocation().y);
+
+    // auto action = MoveTo::create(3, 
+    //     Point(touch->getLocation().x, touch->getLocation().y));
+    // myCatSprite2->runAction(action);
+
+}
+
+void HelloWorld::onTouchEnded(Touch* touch, Event* event)
+{
+
+}
+
+
+// void HelloWorld::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event) {
+//     CCLOG("onTouchesBegan");
+//     // auto action = MoveTo::create(5, 
+//     //     Point(touches->getLocation().x, touches->getLocation().y));
+//     // myCatSprite2->runAction(action);
+// }
 
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

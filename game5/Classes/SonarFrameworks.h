@@ -18,23 +18,24 @@
 #define __SONAR_FRAMEWORKS_H__
 
 #include "cocos2d.h"
+#include "CCString.h"
+
 
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-// #include "JNIHelpers.h"
-#include <platform/android/jni/JniHelper.h>
-
+//#include "JNIHelpers.h"
+#include <platform/android/jni/JniHelper.h>  
 #elif(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "SCHDefinitions.h"
 #endif
 
-#include "SimpleAudioEngine.h"
+//#include "SimpleAudioEngine.h"
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 
 using namespace cocos2d;
 
 USING_NS_CC_EXT;
-using namespace ui;
+using namespace cocos2d::ui;
 
 namespace SonarCocosHelper
 {
@@ -394,7 +395,7 @@ public:
      * @param yPos (required) y-axis position
      */
     void SetMusicButtonPosition( float xPos, float yPos );
-    
+
     /**
      * Create and add a centered background
      * @param backgroundImage (required) background image filepath
@@ -413,9 +414,9 @@ public:
     static Vec2 GetScreenCorner( int position, Node *itemToPosition );
 
 private:
-    ui::Button *audioToggleButton;
-    ui::Button *soundEffectsToggleButton;
-    ui::Button *musicToggleButton;
+    cocos2d::ui::Button *audioToggleButton;
+    cocos2d::ui::Button *soundEffectsToggleButton;
+    cocos2d::ui::Button *musicToggleButton;
 
     class Audio
     {
@@ -558,10 +559,9 @@ public:
 class AmazonGameCircle
 {
 public:
-    /**
-            * show leaderboard
-            * @param leaderboardID is the name of your leaderboard
-            */
+    /* show leaderboard
+     * @param leaderboardID is the name of your leaderboard
+     */
     static void showLeaderboard( const char *leaderboardID );
     /**
      * Submit score to online leaderboard
@@ -576,9 +576,15 @@ public:
 
     /* show achievement
      * @param achievementID is the name of the achievement
-     *
      */
     static void unlockAchievement(const char* achievementID);
+};
+class AmazonAds
+{
+public:
+    static void showBannerAd();
+    static void hideBannerAd();
+    static void showInterstitial();
 };
 
 class FlurryAnalytics
@@ -588,6 +594,7 @@ public:
     static void sendLogEvent(cocos2d::__String eventId,bool timed);
     static void endLogEvent(cocos2d::__String eventId);
 };
+
 }
 
 #endif

@@ -39,6 +39,17 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+    cocos2d::Sprite* myCatSprite2;
+
+    bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event * event);
+    void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event * event);
+    void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event * event);
+
+    // void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event);
+    // void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event);
+    // void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event* event);
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

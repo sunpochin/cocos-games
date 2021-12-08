@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
-#include "SplashScene.h"
-#include "SonarCocosHelperCPP/SonarFrameworks.h"
+#include "HelloWorldScene.h"
+#include "SonarFrameworks.h"
 
 USING_NS_CC;
 
